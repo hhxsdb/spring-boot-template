@@ -13,4 +13,18 @@
         id, student_name
     </sql>
 
+    <!-- 获取学生课程信息 -->
+    <select id="getStudentCourses" resultType="java.util.Map">
+        SELECT
+            s.student_name,
+            c.class_name,
+            GROUP_CONCAT(DISTINCT co.course_name) as course_names
+        FROM
+            student s
+            LEFT JOIN class c ON s.class_id = c.id
+            LEFT JOIN student_course sc ON s.id = sc.student_id
+            LEFT JOIN course co ON sc.course_id = co.id
+        GROUP BY
+            s.id, s.student_name, c.class_name
+    </select>
 </mapper>

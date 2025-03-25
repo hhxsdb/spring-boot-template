@@ -5,6 +5,7 @@ import com.example.class_test.mapper.StudentMapper;
 import com.example.class_test.service.StudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
   }
   public List<Student> getAllStudentsWithClass() {
     return studentMapper.selectAllStudentsWithClass();
+  }
+  public    List<Map<String, Object>> getStudentCourses(){
+    return studentMapper.getStudentCourses();
   }
 }
