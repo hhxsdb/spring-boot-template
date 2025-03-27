@@ -15,4 +15,5 @@ import java.util.Map;
  */
 public interface TeacherService extends IService<Teacher> {
   List<Map<String, Object>> getTeachersWithClass();
+   Teacher getTeacherByIdWithCache(Long teacherId);
 }

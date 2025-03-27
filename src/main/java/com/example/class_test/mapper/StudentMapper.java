@@ -26,7 +26,7 @@ public interface StudentMapper extends BaseMapper<Student> {
   @Select("SELECT s.id AS student_id, s.student_name, s.class_id, c.class_name " +
       "FROM student s LEFT JOIN class c ON s.class_id = c.id")
   List<Student> selectAllStudentsWithClass();
-// sql语句讲studentMapper.xml 联表查询学生和对应课程
+// sql语句在studentMapper.xml
   @Select("")
   List<Map<String, Object>> getStudentCourses();
 }

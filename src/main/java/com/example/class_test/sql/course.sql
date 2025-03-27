@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80018
 File Encoding         : 65001
 
-Date: 2025-03-25 11:05:15
+Date: 2025-03-27 21:48:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,12 +21,12 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `course_name` varchar(255) COLLATE utf8mb4_zh_0900_as_cs NOT NULL,
+  `course_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_zh_0900_as_cs NOT NULL,
   `teacher_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `teacher_id` (`teacher_id`),
   CONSTRAINT `course_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_zh_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_zh_0900_as_cs;
 
 -- ----------------------------
 -- Records of course

@@ -2,12 +2,16 @@ package com.example.class_test.controller;
 
 
 import com.example.class_test.common.Result;
+import com.example.class_test.entity.Teacher;
 import com.example.class_test.service.TeacherService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,5 +31,10 @@ public class TeacherController {
   @GetMapping("/list")
   private Result getAllTeacher(){
     return Result.success(teacherService.getTeachersWithClass());
+  }
+  //redis缓存 通过id获取教师
+  @PostMapping("/getTeacher")
+  public Teacher getTeacherById(@RequestBody Teacher teacher) {
+    return teacherService.getTeacherByIdWithCache(Long.valueOf(teacher.getId()));
   }
 }
