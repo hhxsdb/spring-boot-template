@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author wms
  * @since 2025-03-21
  */
+import com.example.class_test.common.QueryPageParam;
+import com.example.class_test.common.Result;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -38,5 +44,13 @@ public class StudentController {
   @GetMapping("/courseList")
   public List<Map<String, Object>> getAllStudentsWithClasswithCourses() {
     return studentService.getStudentCourses();
+  }
+  @PostMapping("/listPage")
+  public Result listPage(@RequestBody QueryPageParam query) {
+    Page<Student> page = new Page<>();
+    page.setCurrent(query.getPageNum());
+    page.setSize(query.getPageSize());
+    Page<Student> studentPage = studentService.page(page);
+    return Result.success(studentPage);
   }
 }
