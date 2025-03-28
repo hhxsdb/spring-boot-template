@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 用户表 Mapper 接口
  * </p>
  *
  * @author wms
- * @since 2025-03-13
+ * @since 2025-03-28
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {

@@ -1,38 +1,62 @@
 package com.example.class_test.controller;
 
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import freemarker.template.utility.StringUtil;
-import java.util.HashMap;
-import java.util.List;
-import lombok.Data;
+import com.example.class_test.entity.User;
+import com.example.class_test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *  前端控制器
+ * 用户表 前端控制器
  * </p>
  *
  * @author wms
- * @since 2025-03-13
+ * @since 2025-03-28
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @PostMapping("/login")
+    public Map<String, Object> login(@RequestBody User user) {
+        Map<String, Object> result = new HashMap<>();
+        
+        // 验证用户名和密码
+        User dbUser = userService.getUserByUsername(user.getUsername());
+        if (dbUser == null) {
+            result.put("code", 401);
+            result.put("message", "用户名不存在");
+            return result;
+        }
+        
+        if (!dbUser.getPassword().equals(user.getPassword())) {
+            result.put("code", 401);
+            result.put("message", "密码错误");
+            return result;
+        }
+        
+        // 生成token（这里简单使用用户ID作为token）
+        String token = String.valueOf(dbUser.getId());
+        
+        // 将用户信息存入Redis，设置过期时间为24小时
+        redisTemplate.opsForValue().set("token:" + token, dbUser, 24, TimeUnit.HOURS);
+        
+        result.put("code", 200);
+        result.put("message", "登录成功");
+        result.put("token", token);
+        result.put("user", dbUser);
+        
+        return result;
+    }
 }

@@ -41,12 +41,11 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     // 如果缓存中没有数据，则从数据库查询
     if (teacher == null) {
       teacher = teacherMapper.selectById(teacherId);
+    }
       if (teacher != null) {
         // 将查询结果存入缓存，并设置过期时间为1小时
         redisTemplate.opsForValue().set(cacheKey, teacher, 1, TimeUnit.HOURS);
-      }
     }
-    
     return teacher;
   }
 }
