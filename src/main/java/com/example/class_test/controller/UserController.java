@@ -1,5 +1,6 @@
 package com.example.class_test.controller;
 
+import com.example.class_test.common.Result;
 import com.example.class_test.entity.User;
 import com.example.class_test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,17 @@ public class UserController {
         result.put("user", dbUser);
         
         return result;
+    }
+//redis 检查登陆状态
+    @GetMapping("/checkLogin")
+    public Result checkLogin(@RequestParam String token) {
+        // 从Redis中获取用户信息
+        User user = (User) redisTemplate.opsForValue().get("token:" + token);
+        
+        if (user != null) {
+            return Result.success(user);
+        } else {
+            return Result.fail();
+        }
     }
 }
