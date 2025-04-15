@@ -3,7 +3,7 @@ import request from '@/utils/request';
 //  登陆
 export function login(data) {
     return request({
-        url: '/login',
+        url: '/user/login',
         method: 'post',
         data
     });
@@ -38,7 +38,7 @@ export function getUserById(id) {
 // 添加用户
 export function addUser(data) {
     return request({
-        url: '/user/add',
+        url: '/user/save',
         method: 'post',
         data
     });

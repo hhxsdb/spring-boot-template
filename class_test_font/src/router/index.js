@@ -11,34 +11,14 @@ const routes = [
     component: () => import("../views/Index.vue"),
     children: [
       {
-        path: "Admin",
-        name: "Admin",
-        component: () => import("../views/admin/AdminManage.vue"),
-      },
-      {
         path: "User",
         name: "User",
         component: () => import("../views/user/UserManage.vue"),
       },
       {
-        path: "Teacher",
-        name: "Teacher",
-        component: () => import("../views/teacher/TeacherManage.vue"),
-      },
-      {
-        path: "Student",
-        name: "Student",
-        component: () => import("../views/student/StudentManage.vue"),
-      },
-      {
-        path: "Class",
-        name: "Class",
-        component: () => import("../views/class/ClassManage.vue"),
-      },
-      {
-        path: "Course",
-        name: "Course",
-        component: () => import("../views/course/CourseManage.vue"),
+        path: "userCenter",
+        name: "UserCenter",
+        component: () => import("../views/UserCenter.vue"),
       },
       {
         path: "", // 默认子路由

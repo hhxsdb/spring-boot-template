@@ -49,100 +49,26 @@ export default {
             this.$refs.loginForm.validate(async (valid) => {
                 if (valid) {
                     try {
-                        // TODO: 根据实际接口修改登录逻辑
+                        // 调用登录接口
                         const res = await login(this.loginForm);
                         if (res.code === 200) {
-                            // 存储用户信息
-                            localStorage.setItem('userInfo', JSON.stringify(res.data));
+                            // 提取用户信息，移除密码字段
+                            const { password, ...userInfo } = res.data.user;
 
-                            // 模拟获取菜单数据并存储 TODO
-                            const menuData = {
-                                code: 200,
-                                msg: "成功",
-                                total: 6,
-                                data: [
-                                    {
-                                        id: 1,
-                                        menucode: "001",
-                                        menuname: "管理员管理",
-                                        menulevel: "1",
-                                        menuparentcode: null,
-                                        menuclick: "Admin",
-                                        menuright: "0",
-                                        menucomponent: "admin/AdminManage.vue",
-                                        menuicon: "el-icon-s-custom"
-                                    },
-                                    {
-                                        id: 2,
-                                        menucode: "002",
-                                        menuname: "用户管理",
-                                        menulevel: "1",
-                                        menuparentcode: null,
-                                        menuclick: "User",
-                                        menuright: "0,1",
-                                        menucomponent: "user/UserManage.vue",
-                                        menuicon: "el-icon-user-solid"
-                                    },
-                                    {
-                                        id: 3,
-                                        menucode: "003",
-                                        menuname: "教师管理",
-                                        menulevel: "1",
-                                        menuparentcode: null,
-                                        menuclick: "Teacher",
-                                        menuright: "0,1",
-                                        menucomponent: "teacher/TeacherManage.vue",
-                                        menuicon: "el-icon-s-check"
-                                    },
-                                    {
-                                        id: 4,
-                                        menucode: "004",
-                                        menuname: "学生管理",
-                                        menulevel: "1",
-                                        menuparentcode: null,
-                                        menuclick: "Student",
-                                        menuright: "0,1",
-                                        menucomponent: "student/StudentManage.vue",
-                                        menuicon: "el-icon-reading"
-                                    },
-                                    {
-                                        id: 5,
-                                        menucode: "005",
-                                        menuname: "班级管理",
-                                        menulevel: "1",
-                                        menuparentcode: null,
-                                        menuclick: "Class",
-                                        menuright: "0,1",
-                                        menucomponent: "class/ClassManage.vue",
-                                        menuicon: "el-icon-s-grid"
-                                    },
-                                    {
-                                        id: 6,
-                                        menucode: "006",
-                                        menuname: "课程管理",
-                                        menulevel: "1",
-                                        menuparentcode: null,
-                                        menuclick: "Course",
-                                        menuright: "0,1,2",
-                                        menucomponent: "course/CourseManage.vue",
-                                        menuicon: "el-icon-notebook-2"
-                                    }
-                                ]
-                            };
+                            // 存储用户信息(不包含密码)
+                            localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-                            // 将菜单数据存储到localStorage
-                            localStorage.setItem('menuList', JSON.stringify(menuData.data));
-
-                            // 存储token用于权限校验
-                            localStorage.setItem('token', 'admin-token');
+                            // 存储真实token
+                            localStorage.setItem('token', res.data.token);
 
                             this.$message.success("登录成功");
-                            // 跳转到根路径
-                            this.$router.push("/");
+                            // 跳转到个人中心页面
+                            this.$router.push("/userCenter");
                         } else {
-                            this.$message.error(res.message || "登录失败");
+                            this.$message.error(res.msg || "登录失败");
                         }
                     } catch (error) {
+                        console.error("登录失败:", error);
                         this.$message.error("登录失败，请重试");
                     }
                 }

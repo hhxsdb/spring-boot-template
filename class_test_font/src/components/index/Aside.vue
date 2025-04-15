@@ -26,9 +26,19 @@ export default {
         // 获取菜单数据
         getMenuList() {
             try {
-                const menuData = localStorage.getItem('menuList');
-                if (menuData) {
-                    this.menuList = JSON.parse(menuData);
+                // 优先从sessionStorage获取
+                const sessionMenuData = sessionStorage.getItem('menuList');
+                if (sessionMenuData) {
+                    this.menuList = JSON.parse(sessionMenuData);
+                    return;
+                }
+
+                // 如果sessionStorage中没有，再从localStorage获取
+                const localMenuData = localStorage.getItem('menuList');
+                if (localMenuData) {
+                    this.menuList = JSON.parse(localMenuData);
+                    // 同时将数据也存入sessionStorage
+                    sessionStorage.setItem('menuList', localMenuData);
                 }
             } catch (error) {
                 console.error('获取菜单数据失败', error);

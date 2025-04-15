@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <app-init />
     <router-view />
   </div>
 </template>
@@ -13,9 +14,14 @@
 
 <script>
 import router from "@/router";
+import AppInit from "@/components/AppInit.vue";
+
 export default {
   name: "App",
   router,
+  components: {
+    AppInit
+  },
   data() {
     return {
       menuList: localStorage.getItem("menuList") ? JSON.parse(localStorage.getItem("menuList")) : [],

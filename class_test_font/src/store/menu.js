@@ -29,7 +29,7 @@ export const useMenuStore = defineStore({
     }),
     actions: {
         setMenuList(menuList) {
-            localStorage.setItem("menuList", JSON.stringify(menuList)); // 手动存储
+            sessionStorage.setItem("menuList", JSON.stringify(menuList)); // 手动存储
             this.menuList = menuList; // 手动更新
             addRoutes(menuList); // 手动添加路由
         },
