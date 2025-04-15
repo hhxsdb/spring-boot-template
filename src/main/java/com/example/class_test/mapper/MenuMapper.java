@@ -1,6 +1,6 @@
 package com.example.class_test.mapper;
 
-import com.example.class_test.entity.Class;
+import com.example.class_test.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author wms
- * @since 2025-03-21
+ * @since 2025-04-01
  */
 @Mapper
-public interface ClassMapper extends BaseMapper<Class> {
+public interface MenuMapper extends BaseMapper<Menu> {
 
 }

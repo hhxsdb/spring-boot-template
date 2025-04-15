@@ -1,6 +1,6 @@
 package com.example.class_test.service;
 
-import com.example.class_test.entity.Course;
+import com.example.class_test.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author wms
- * @since 2025-03-25
+ * @since 2025-04-01
  */
-public interface CourseService extends IService<Course> {
+public interface MenuService extends IService<Menu> {
 
 }

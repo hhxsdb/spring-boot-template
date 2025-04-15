@@ -58,7 +58,7 @@ public class CodeGenerator {
 // ⼀、修改数据源 todo
     dsc.setUrl("jdbc:mysql://localhost:3306/xueke_springboot?useUnicode=true&characterEncoding=UTF8&useSSL=false");
 // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+    dsc.setDriverName("com.mysql.jdbc.Driver");
     dsc.setUsername("root");
     dsc.setPassword("123456");
     mpg.setDataSource(dsc);
